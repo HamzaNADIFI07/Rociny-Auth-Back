@@ -1,15 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
-  constructor() {
+  constructor(private readonly config: ConfigService) {
+    const secret = config.get<string>('JWT_SECRET') ?? 'dev_secret_change_me';
     super({
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       ignoreExpiration: false,
-      secretOrKey: (process.env.JWT_SECRET as string) || 'Clé', //Permet à l'API de fonctionner en dev meme sans avoir de .env avec les clés, mais à enlever lors de la production
+      secretOrKey: secret,
     });
   }
 
