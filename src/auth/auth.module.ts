@@ -1,15 +1,25 @@
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
-import { PassportModule } from '@nestjs/passport';
+import { ConfigService } from '@nestjs/config';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
-import { JwtStrategy } from './strategies/jwt.strategy';
 import { UsersService } from '../users/users.service';
 
 @Module({
-  imports: [PassportModule, JwtModule.register({})],
+  imports: [
+    JwtModule.registerAsync({
+      inject: [ConfigService],
+      useFactory: (cfg: ConfigService) => {
+        const secret = cfg.get<string>('JWT_SECRET');
+        if (!secret) {
+          throw new Error('JWT_SECRET is missing in environment variables');
+        }
+        return { secret, signOptions: { expiresIn: '1h' } };
+      },
+    }),
+  ],
   controllers: [AuthController],
-  providers: [AuthService, JwtStrategy, UsersService],
+  providers: [AuthService, UsersService],
   exports: [AuthService],
 })
 export class AuthModule {}
