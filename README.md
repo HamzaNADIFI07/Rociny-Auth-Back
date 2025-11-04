@@ -18,13 +18,6 @@ npm install
 ```bash
 npm run start
 ```
-4. Test du fonctionnement (Facultatif)
-
-- Après lancement du serveur, soit on ouvre le navigateur sur `http://localhost:4000/`, et on aura comme rendu **Hello World!**.
-
-- Sinon, on utilise Postman sur l'adresse `http://localhost:4000/` avec la méthode `GET`, et on a aura comme rendu **Hello World!**.
-
-![testHealth](./assets/testHealth.png)
 
 ### Convention de nommage des commits
 Ce projet suit la convention Conventional Commits.
@@ -54,3 +47,55 @@ docs(readme): add commit naming convention
 refactor(core): move config module to separate folder
 chore(deps): update NestJS to v11
 ```
+
+### Fonctionnalités actuelles
+
+- Authentification JWT avec Passport
+- Vérification du mot de passe via bcrypt
+- Simulation d’une base de données en mémoire (10 utilisateurs auto-générés)
+- Validation des données avec DTOs + class-validator
+- Routes d’authentification :
+  - GET /auth → test de santé
+  - POST /auth/login → connexion + token JWT
+
+### Endpoints disponibles:
+
+1. GET /auth — Vérification de l’état de l’API
+
+    **But:** s’assurer que l’API fonctionne
+    ```bash
+    curl http://localhost:4000/auth
+    ```
+    **Réponse:** 
+    ```bash
+    API fonctionne
+    ```
+    **Test avec Postman:**
+    ![Health](./assets/testHealth.png)
+---
+2. POST /auth/login — Connexion utilisateur
+
+    **But:** authentifier un utilisateur et retourner un token JWT
+    ```bash
+    curl -X POST http://localhost:4000/auth/login \
+      -H "Content-Type: application/json" \
+      -d '{"email":"user1@rociny.com","password":"mdp123"}'
+    ```
+    **Réponse:** 
+    ```json
+    {
+        "accessToken":    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoidXNlcjFAcm9jaW55LmNvbSIsImlhdCI6MTc2MjIyMDI1MywiZXhwIjoxNzYyMjIzODUzfQ.CK3s6BFnPZY3YnOVYQn2p55V_wZkWyDWeKd_y1HTT2U",
+        "user": {
+            "id": 1,
+            "email": "user1@rociny.com",
+            "name": "User 1"
+        }
+    }
+    ```
+    **Test avec Postman:**
+    ![User 1](./assets/testLoginUser1.png)
+    ![User 1](./assets/testLoginUser3.png)
+
+
+
+
