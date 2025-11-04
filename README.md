@@ -7,8 +7,8 @@ Ce projet servira de base pour la gestion des utilisateurs, la création de toke
 
 1. Cloner le projet
 ```bash
-git clone https://github.com/HamzaNADIFI07/Rociny-Auth
-cd rociny-auth/rociny-auth-back
+git clone https://github.com/HamzaNADIFI07/Rociny-Auth-Back
+cd rociny-auth-back
 ```
 2. Installer les dépendances
 ```bash
@@ -26,3 +26,31 @@ npm run start
 
 ![testHealth](./assets/testHealth.png)
 
+### Convention de nommage des commits
+Ce projet suit la convention Conventional Commits.
+
+1. Format général:
+```bash
+<type>(scope?): <message clair et concis>
+```
+2. Types courants:
+
+| Type       | Signification                                              |
+| ---------- | ---------------------------------------------------------- |
+| `feat`     | Nouvelle fonctionnalité                                    |
+| `fix`      | Correction de bug                                          |
+| `docs`     | Modification de la documentation                           |
+| `style`    | Changement de formatage (indentation, espaces, etc.)       |
+| `refactor` | Refactorisation sans ajout ni correction de fonctionnalité |
+| `perf`     | Amélioration des performances                              |
+| `test`     | Ajout ou modification de tests                             |
+| `chore`    | Tâches diverses (build, dépendances, config, etc.)         |
+
+3. Exemples:
+```
+feat(auth): add JWT strategy and login endpoint
+fix(users): correct password hashing in user service
+docs(readme): add commit naming convention
+refactor(core): move config module to separate folder
+chore(deps): update NestJS to v11
+```
