@@ -1,4 +1,4 @@
-# Rociny Auth Back — Initial Setup
+# Rociny Auth Back
 
 Rociny Auth Back est un service d’authentification basé sur le framework **NestJS**.
 Ce projet servira de base pour la gestion des utilisateurs, la création de tokens JWT, et la sécurisation des endpoints d’une future application Rociny.
